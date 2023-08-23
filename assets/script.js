@@ -21,11 +21,6 @@ const slides = [
 // console.log(nombreImages);
 // // let precedent = document.querySelector(".precedent");
 
-// function enleverActiveImages() {
-//   for (let i = 0; i < nombreImages; i++) {
-//     imgSlider[i].classList.remove("active");
-//   }
-// }
 // suivant.addEventListener("click", function () {
 //   numero++;
 //   if (numero >= nombreImages) {
@@ -55,16 +50,25 @@ const slides = [
 // flecheDroite.addEventListener("click", () =>
 //   console.log("Click sur la flèche de droite !")
 // );
+let dot_slider = document.getElementsByClassName("dot_slider");
+console.log(dot_slider);
 let suivant = document.querySelector(".suivant");
 let precedent = document.querySelector(".precedent");
 let numero = 0;
 let nombreImages = slides.length;
+let nombreDots = dot_slider.length;
+function enleverActiveImages() {
+  for (let i = 0; i < nombreDots; i++) {
+    dot_slider[i].classList.remove("dot_selected");
+  }
+}
 
 const bannerPara = document.getElementById("texte");
 
 console.log(slides[numero]["image"]);
 function ChangeSlides(sens) {
   numero = numero + sens;
+  enleverActiveImages();
   if (numero >= nombreImages) {
     numero = 0;
   } else if (numero < 0) {
@@ -91,13 +95,13 @@ function ChangeDots(sens) {
 // });
 suivant.addEventListener("click", plus);
 function plus() {
-  dot_active[numero].classList.remove("dot_selected");
   ChangeSlides(+1);
   ChangeDots(+1);
 }
 precedent.addEventListener("click", moins);
 function moins() {
-  dot_active[numero].classList.remove("dot_selected");
   ChangeSlides(-1);
   ChangeDots(-1);
 }
+setInterval("ChangeSlides(1)", 3000);
+setInterval("ChangeDots(1)", 3000);
