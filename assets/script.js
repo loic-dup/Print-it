@@ -20,7 +20,7 @@ const slides = [
 // console.log(imgSlider);
 // console.log(nombreImages);
 // // let precedent = document.querySelector(".precedent");
-let suivant = document.querySelector(".suivant");
+
 // function enleverActiveImages() {
 //   for (let i = 0; i < nombreImages; i++) {
 //     imgSlider[i].classList.remove("active");
@@ -55,7 +55,8 @@ let suivant = document.querySelector(".suivant");
 // flecheDroite.addEventListener("click", () =>
 //   console.log("Click sur la flèche de droite !")
 // );
-
+let suivant = document.querySelector(".suivant");
+let precedent = document.querySelector(".precedent");
 let numero = 0;
 let nombreImages = slides.length;
 
@@ -71,11 +72,14 @@ function ChangeSlides(sens) {
   }
   document.getElementById("slide").src =
     "./assets/images/slideshow/" + slides[numero]["image"];
-  console.log(numero);
+  // console.log(numero);
   const bannerPara = document.getElementById("texte");
   bannerPara.innerText = slides[numero]["tagLine"];
 }
 let dot_active = document.getElementsByClassName("dot");
+function ChangeDots(sens) {
+  dot_active[numero].classList.add("dot_selected");
+}
 // suivant.addEventListener("click", function () {
 //   numero = numero + sens;
 //   if (numero >= nombreImages) {
@@ -85,3 +89,15 @@ let dot_active = document.getElementsByClassName("dot");
 //   }
 //   dot_active[numero].classList.add("dot_selected");
 // });
+suivant.addEventListener("click", plus);
+function plus() {
+  dot_active[numero].classList.remove("dot_selected");
+  ChangeSlides(+1);
+  ChangeDots(+1);
+}
+precedent.addEventListener("click", moins);
+function moins() {
+  dot_active[numero].classList.remove("dot_selected");
+  ChangeSlides(-1);
+  ChangeDots(-1);
+}
